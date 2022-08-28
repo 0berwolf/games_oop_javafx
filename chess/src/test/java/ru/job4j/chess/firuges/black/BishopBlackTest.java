@@ -13,7 +13,7 @@ class BishopBlackTest {
     void bishopBlackPosition() {
         BishopBlack bishopBlack = new BishopBlack(Cell.F8);
         bishopBlack.position();
-        assertThat(bishopBlack.position(), is(Cell.F8));
+        assertThat((bishopBlack.position()), is(Cell.F8));
     }
 
     @Test

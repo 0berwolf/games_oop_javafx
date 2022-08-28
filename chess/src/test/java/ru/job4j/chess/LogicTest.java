@@ -16,9 +16,6 @@ public class LogicTest {
         FigureNotFoundException exception = assertThrows(FigureNotFoundException.class, () -> {
             logic.move(Cell.C1, Cell.H6);
         });
-        logic.add(new BishopBlack(Cell.A1));
-        logic.add(new BishopBlack(Cell.B2));
-        logic.move(Cell.C3, Cell.A1);
         assertThat(exception.getMessage()).isEqualTo("Figure not found on the board.");
     }
 
@@ -26,24 +23,22 @@ public class LogicTest {
     public void whenMoveThenImpossibleMove()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
         ImpossibleMoveException exception = assertThrows(ImpossibleMoveException.class, () -> {
-            logic.move(Cell.C1, Cell.H6);
+            logic.move(Cell.C1, Cell.C6);
         });
-        logic.add(new BishopBlack(Cell.A1));
-        logic.move(Cell.A1, Cell.A3);
-        assertThat(exception.getMessage()).isEqualTo("Figure try impossible move.");
+        assertThat(exception.getMessage()).isEqualTo("Could not way by diagonal from C1 to C6.");
     }
 
     @Test
     public void whenMoveThenOccupied()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new BishopBlack(Cell.F4));
         OccupiedCellException exception = assertThrows(OccupiedCellException.class, () -> {
             logic.move(Cell.C1, Cell.H6);
         });
-        logic.add(new BishopBlack(Cell.A1));
-        logic.add(new BishopBlack(Cell.B2));
-        logic.move(Cell.B2, Cell.A1);
-        assertThat(exception.getMessage()).isEqualTo("Figure don't try move.");
+        assertThat(exception.getMessage()).isEqualTo("The cell is occupied.");
     }
 }
